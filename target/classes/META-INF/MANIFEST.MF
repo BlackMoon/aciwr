@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: commons-lang3-3.0.jar log4j-1.2.17.jar
-Build-Jdk: 1.7.0_55
-Built-By: Black Moon
-Created-By: Maven Integration for Eclipse
-Main-Class: org.bm.Aciwr
-
