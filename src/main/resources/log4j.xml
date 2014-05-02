@@ -18,9 +18,19 @@
       <param name="ConversionPattern" value="%d{dd-MM-yyyy HH:mm:ss} %5p [%c] - %m%n"/>
     </layout> 
   </appender>
+  
+  <logger name="org.bm.Aciwr" additivity="false">  	
+  	<level value="info" />
+  	<appender-ref ref="console"/>
+  </logger>
+	
+  <logger name="org.bm.Processor" additivity="false">  	
+  	<level value="info" />
+  	<appender-ref ref="console"/>
+  </logger>
      
   <root>  	
-  	<priority value="info"/>    
+  	<priority value="error"/>    
     <appender-ref ref="console" />    
   </root> 
     

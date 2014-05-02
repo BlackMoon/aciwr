@@ -33,8 +33,8 @@ public class Aciwr {
 		String word;
 		Integer cnt, min = 0;
 		
-		Map<String, Integer> entries = new HashMap<String, Integer>(),			// word entries
-							 sorted = new HashMap<String, Integer>();
+		Map<String, Integer> entries = new HashMap<String, Integer>(words.size() >> 1, p.LoadFactor),				// word entries, initial capacity ~ word.size() /2
+							 sorted = new HashMap<String, Integer>(p.FrequentSize);
 		
 		while(it.hasNext()){			
 			word = it.next();
@@ -52,11 +52,14 @@ public class Aciwr {
 				min = Collections.min(sorted.values());
 			}
 			else {
-				if (cnt > min) {
-					sorted = MapUtil.sortByValue(sorted);
-					
+				if (sorted.size() > 0 && cnt > min) {
+					/*
+					 * if there's no element with key in sorted map --> remove min (first) element, otherwise --> update element value
+					 */					 
 					if (!sorted.containsKey(word))
 					{	
+						sorted = MapUtil.sortByValue(sorted);			// after sorting operation min element will be first
+						
 						// remove first entry
 						Iterator<Entry<String, Integer>> it_first = sorted.entrySet().iterator();
 						it_first.next();
@@ -68,12 +71,18 @@ public class Aciwr {
 				}
 			}			
 		}
+		entries.clear();		
 		
-		for (Entry<String, Integer> e: MapUtil.sortByValue(sorted).entrySet()){
+		System.out.println("\n\t*** Top " + p.FrequentSize + " most frequent strings ***");
+		sorted = MapUtil.sortByValue(sorted);
+		for (Entry<String, Integer> e: sorted.entrySet()){
 			System.out.println(e.getKey() + " - " + e.getValue());
 		}
+		System.out.print("\n");
+		sorted.clear();
 		
-		System.exit(0);
+		log.info("Finish");
+		System.exit(0);		
 	}
 
 }
